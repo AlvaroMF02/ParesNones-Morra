@@ -8,43 +8,38 @@ import java.util.Scanner;
  *
  * @author alvaro
  */
-public class ParesNones {
+public class ParesNonesRondas {
 
     public static void main(String[] args) {
+        //FALTA INDICAR EL GANADOR
+
         //VARIABLES
-        String opcion = "";
         String eleccionUsu = "";
         String eleccionMaq = "";
         int dedosUsu;
         int dedosMaq;
+        int rondas;
+        int contadorGanador;
 
-        do {
-            //MOSTRAR MENU
-            menu();
-            //LEER MENU
-            opcion = leerOpc();
+        //MOSTRAR EL MENU DE LAS RONDAS
+        menu();
+        rondas = teclado.nextInt();
+        teclado.nextLine();
 
-            switch (opcion) {
-                case "jugar":
-                    //ELECCION DE PARES O NONES
-                    eleccionUsu = eleccionParNonUsu();
-                    eleccionMaq = eleccionParNonMaq(eleccionUsu);
+        for (int i = 0; i < rondas; i++) {
+            
+            //ELECCION DE PARES O NONES
+            eleccionUsu = eleccionParNonUsu();
+            eleccionMaq = eleccionParNonMaq(eleccionUsu);
 
-                    //ELEGIR Nº DE DEDOS
-                    dedosUsu = dedosUsu();
-                    dedosMaq = dedosMaq();
+            //ELEGIR Nº DE DEDOS
+            dedosUsu = dedosUsu();
+            dedosMaq = dedosMaq();
 
-                    //MOSTRAR GANADOR
-                    ganador(dedosUsu, dedosMaq);
-                    break;
+            //MOSTRAR GANADOR
+            ganador(dedosUsu, dedosMaq);
 
-                case "salir":
-                    System.out.println("SALIDA DEL PROGRAMA\n");
-                    break;
-
-            }
-
-        } while (!opcion.equalsIgnoreCase("salir"));
+        }
     }
 
     private static Scanner teclado = new Scanner(System.in);
@@ -52,30 +47,10 @@ public class ParesNones {
     public static void menu() {
         String menu = """
                     *******************************
-                              -> JUGAR <-
-                              -> SALIR <-
+                        -> INDICA LAS RONDAS <-
                     *******************************
                     """;
         System.out.println(menu);
-    }
-
-    public static String leerOpc() {
-        String opcion;
-
-        do {
-            System.out.println("ESCOJA (JUGAR) O (SALIR)");
-            opcion = teclado.nextLine();
-            opcion = opcion.toLowerCase();
-            if (!opcion.equalsIgnoreCase("jugar")
-                    && !opcion.equalsIgnoreCase("salir")) {
-
-                System.out.println("ESCRIBA BIEN LA OPCIÓN\n");
-            }
-
-        } while (!opcion.equalsIgnoreCase("jugar")
-                && !opcion.equalsIgnoreCase("salir"));
-
-        return opcion;
     }
 
     public static String eleccionParNonUsu() {
