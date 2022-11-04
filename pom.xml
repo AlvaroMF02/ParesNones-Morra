@@ -11,4 +11,5 @@
         <maven.compiler.target>18</maven.compiler.target>
         <exec.mainClass>com.mycompany.paresnones.ParesNones</exec.mainClass>
     </properties>
+    <name>ParesNones-Morra</name>
 </project>
