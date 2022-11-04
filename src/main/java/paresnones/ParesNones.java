@@ -11,7 +11,7 @@ import java.util.Scanner;
 public class ParesNones {
 
     public static void main(String[] args) {
-        //TRY CATCH DEPDS DE LA MANO
+        //FALTA PONER LAS VECES QUE SE REPETIRÁ
 
         //VARIABLES
         String opcion = "";
@@ -19,34 +19,40 @@ public class ParesNones {
         String eleccionMaq = "";
         int dedosUsu;
         int dedosMaq;
+        int rondas;
 
-        do {
-            //MOSTRAR MENU
-            menu();
-            //LEER MENU
-            opcion = leerOpc();
+        System.out.println("¿CUANTAS RONDAS QUIERES JUGAR?");
+        rondas = teclado.nextInt();
 
-            switch (opcion) {
-                case "jugar":
-                    //ELECCION DE PARES O NONES
-                    eleccionUsu = eleccionParNonUsu();
-                    eleccionMaq = eleccionParNonMaq(eleccionUsu);
+        for (int i = 0; i < rondas; i++) {
 
-                    //ELEGIR Nº DE DEDOS
-                    dedosUsu = dedosUsu();
-                    dedosMaq = dedosMaq();
+            do {
+                //MOSTRAR MENU
+                menu();
+                //LEER MENU
+                opcion = leerOpc();
 
-                    //MOSTRAR GANADOR
-                    ganador(dedosUsu, dedosMaq);
-                    break;
+                switch (opcion) {
+                    case "jugar":
+                        //ELECCION DE PARES O NONES
+                        eleccionUsu = eleccionParNonUsu();
+                        eleccionMaq = eleccionParNonMaq(eleccionUsu);
 
-                case "salir":
-                    System.out.println("SALIDA DEL PROGRAMA\n");
-                    break;
+                        //ELEGIR Nº DE DEDOS
+                        dedosUsu = dedosUsu();
+                        dedosMaq = dedosMaq();
 
-            }
+                        //MOSTRAR GANADOR
+                        ganador(dedosUsu, dedosMaq);
+                        break;
 
-        } while (!opcion.equalsIgnoreCase("salir"));
+                    case "salir":
+                        System.out.println("SALIDA DEL PROGRAMA\n");
+                        break;
+                }
+            } while (!opcion.equalsIgnoreCase("salir"));
+
+        }
     }
 
     private static Scanner teclado = new Scanner(System.in);
