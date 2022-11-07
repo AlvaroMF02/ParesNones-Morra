@@ -16,8 +16,10 @@ public class MorraPrueba {
         String opcion = "";
         String eleccionUsu = "";
         String eleccionMaq = "";
-        int dedosUsu;
+        int dedosJug1;
+        int suposJug1;
         int dedosMaq;
+        int suposMaq;
 
         do {
             //MOSTRAR MENU
@@ -29,12 +31,27 @@ public class MorraPrueba {
             switch (opcion) {
                 case "contra maquina":
                     System.out.println("CONTRA LA MAQUINA");
-                    break;
+                    dedosJug1 = dedosJug();
+                    dedosMaq = dedosMaq();
+
+                    System.out.println("JUGADOR: " + dedosJug1);
+                    System.out.println("JUGADOR: " + dedosMaq);
                     
+                    //USUARIO INDICA LO QUE CREE QUE SALDRÁ
+                    suposJug1=supDedosTotalJug();
+                    System.out.println("EL JUGADOR CREE QUE EL TOTAL ES: "+suposJug1);
+                    suposMaq=supDedosTotalMaq();
+                    System.out.println("LA MAQUINA CREE QUE EL TOTAL ES: "+suposMaq);
+                    
+                    //COMPARAR LOS DEDOS QUE HAN SACADO CADA UNO PARA VER EL GANADOR
+                    
+                    
+                    break;
+
                 case "contra amigo":
                     System.out.println("CONTRA UN AMIGO");
                     break;
-                    
+
                 case "salir":
                     System.out.println("SALIDA DEL PROGRAMA\n");
                     break;
@@ -79,38 +96,7 @@ public class MorraPrueba {
         return opcion;
     }
 
-    public static String eleccionParNonUsu() {
-        String eleccion;
-        do {
-            System.out.println("ESCOJA PARES O NONES");
-            eleccion = teclado.nextLine();
-            eleccion = eleccion.toLowerCase();
-
-            if (eleccion.equalsIgnoreCase("pares")) {
-                System.out.println("HAS ELEGIDO PARES\n");
-            } else if (eleccion.equalsIgnoreCase("nones")) {
-                System.out.println("HAS ELEGIDO NONES\n");
-            } else {
-                System.out.println("ESCRIBA BIEN PARES O NONES\n");
-            }
-        } while (!eleccion.equalsIgnoreCase("pares")
-                && !eleccion.equalsIgnoreCase("nones"));
-
-        return eleccion;
-    }
-
-    public static String eleccionParNonMaq(String eleccUsu) {
-        String eleccionMaq;
-        if (eleccUsu.equalsIgnoreCase("pares")) {
-            eleccionMaq = "nones";
-        } else {
-            eleccionMaq = "pares";
-        }
-
-        return eleccionMaq;
-    }
-
-    public static int dedosUsu() {
+    public static int dedosJug() {
         int dedosUsu = 0;
         boolean repetir = true;
 
@@ -141,6 +127,61 @@ public class MorraPrueba {
         return dedosUsu;
     }
 
+    public static int supDedosTotalJug() {
+        int supDedosJug = 2;
+        boolean repetir = true;
+
+        do {
+            do {
+                try {
+
+                    System.out.println("¿CUÁNTOS DEDOS CREES QUE HABRÁ EN TOTAL?");
+                    supDedosJug = teclado.nextInt();
+                    if (supDedosJug < 2 || supDedosJug > 10) {
+                        System.out.println("COMO MIN SON 2 Y COMO MAX 10\n");
+                    }
+
+                    repetir = false;
+
+                } catch (InputMismatchException ime) {
+                    System.out.println("NO ESCRIBAS LETRAS\n");
+                    teclado.nextLine();
+                }
+
+            } while (repetir);
+            
+        } while (supDedosJug < 2 || supDedosJug > 10);
+
+        return supDedosJug;
+    }
+    
+    public static int supDedosTotalMaq() {
+        Random alea = new Random();
+        int suposicionMaq;
+        suposicionMaq = alea.nextInt(2, 10 + 1);
+        
+        return suposicionMaq;
+    }
+    
+    public static boolean ganador(int suposJug, int suposMaq){
+        int numGanad;
+        //DEVOLER VD Y FALSO SI GANA UNO U OTRO
+        
+        numGanad = suposJug + suposMaq;
+        
+        if (numGanad == suposJug) {
+            System.out.println("HA GANADO EL JUGADOR");
+
+        } else if(numGanad == suposMaq){
+            System.out.println("HA GANADO LA MÁQUINA");
+
+        }else{
+            System.out.println("NO HA ACERTADO NADIE");
+        }
+        
+        return 
+    }
+
     public static int dedosMaq() {
         Random alea = new Random();
         int dedosMaq;
@@ -153,26 +194,4 @@ public class MorraPrueba {
         return dedosMaq;
     }
 
-    public static void ganador(int dedosUsu, int dedosMaq) {
-        int sumaDedos;
-        String resultado = """
-                         *******************************
-                         DEDOS JUGADOR: %d
-                         DEDOS MAQUINA: %d
-                         """.formatted(dedosUsu, dedosMaq);
-
-        sumaDedos = dedosUsu + dedosMaq;
-
-        if (sumaDedos % 2 == 0) {
-            System.out.println(resultado);
-            System.out.println("GANADOR: PARES");
-            System.out.println("*******************************\n");
-        } else {
-            System.out.println(resultado);
-            System.out.println("GANADOR: NONES");
-            System.out.println("*******************************\n");
-        }
-        teclado.nextLine();
-
-    }
 }
