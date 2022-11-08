@@ -12,14 +12,18 @@ import java.util.Scanner;
 public class MorraPrueba {
 
     public static void main(String[] args) {
+        //PONER COMENTARIOS
+
         //VARIABLES
         String opcion = "";
-        String eleccionUsu = "";
-        String eleccionMaq = "";
         int dedosJug1;
         int suposJug1;
         int dedosMaq;
         int suposMaq;
+        boolean contadorTRue;   //SIRVE PARA CALCULAR AYUDAR AL CONTADOR DE GANADORES
+        int contadorJug1 = 0;
+        int contadorJug2 = 0;
+        int contadorMaq = 0;
 
         do {
             //MOSTRAR MENU
@@ -29,26 +33,36 @@ public class MorraPrueba {
             opcion = leerOpc();
 
             switch (opcion) {
-                case "contra maquina":
-                    System.out.println("CONTRA LA MAQUINA");
+                case "maquina":
                     dedosJug1 = dedosJug();
                     dedosMaq = dedosMaq();
 
-                    System.out.println("JUGADOR: " + dedosJug1);
-                    System.out.println("JUGADOR: " + dedosMaq);
-                    
                     //USUARIO INDICA LO QUE CREE QUE SALDRÁ
-                    suposJug1=supDedosTotalJug();
-                    System.out.println("EL JUGADOR CREE QUE EL TOTAL ES: "+suposJug1);
-                    suposMaq=supDedosTotalMaq();
-                    System.out.println("LA MAQUINA CREE QUE EL TOTAL ES: "+suposMaq);
-                    
+                    suposJug1 = supDedosTotalJug();
+                    suposMaq = supDedosTotalMaq();
+
                     //COMPARAR LOS DEDOS QUE HAN SACADO CADA UNO PARA VER EL GANADOR
-                    
-                    
+                    contadorTRue = ganador(dedosJug1, dedosMaq, suposJug1, suposMaq);
+
+                    //CONTADOR
+                    if (contadorTRue) {
+                        contadorJug1++;
+                    } else {
+                        contadorMaq++;
+                    }
+
+                    System.out.println("EL JUGADOR SACÓ " + dedosJug1 + " DEDOS, Y CREE QUE HAY " + suposJug1);
+                    System.out.println("LA MAQUINA SACÓ " + dedosMaq + " DEDOS, Y CREE QUE HAY " + suposMaq);
+
+                    System.out.println("------------PUNTUACIONES:------------");
+                    System.out.println("JUGADOR: " + contadorJug1);
+                    System.out.println("MAQUINA: " + contadorMaq);
+                    System.out.println("--------------------------------------");
+
+                    teclado.nextLine();
                     break;
 
-                case "contra amigo":
+                case "amigo":
                     System.out.println("CONTRA UN AMIGO");
                     break;
 
@@ -78,19 +92,19 @@ public class MorraPrueba {
         String opcion;
 
         do {
-            System.out.println("ESCOJA (CONTRA MAQUINA) , (CONTRA AMIGO) O (SALIR)");
+            System.out.println("ESCOJA (MAQUINA) , (AMIGO) O (SALIR)");
             opcion = teclado.nextLine();
             opcion = opcion.toLowerCase();
 
-            if (!opcion.equalsIgnoreCase("contra maquina")
-                    && !opcion.equalsIgnoreCase("contra amigo")
+            if (!opcion.equalsIgnoreCase("maquina")
+                    && !opcion.equalsIgnoreCase("amigo")
                     && !opcion.equalsIgnoreCase("salir")) {
 
                 System.out.println("ESCRIBA BIEN LA OPCIÓN\n");
             }
 
-        } while (!opcion.equalsIgnoreCase("contra maquina")
-                && !opcion.equalsIgnoreCase("contra amigo")
+        } while (!opcion.equalsIgnoreCase("maquina")
+                && !opcion.equalsIgnoreCase("amigo")
                 && !opcion.equalsIgnoreCase("salir"));
 
         return opcion;
@@ -107,7 +121,7 @@ public class MorraPrueba {
                     System.out.println("INDIQUE LA CANTIDAD DE DEDOS");
                     dedosUsu = teclado.nextInt();
                     if (dedosUsu < 0 || dedosUsu > 5) {
-                        System.out.println("ESCRIBE BIEN LOS DEDOS\n");
+                        System.out.println("SOLO PUEDES SACAR 5 DEDOS COMO MUCHO\n");
                     }
                     //0 DEDOS SON 1
                     if (dedosUsu == 0) {
@@ -125,6 +139,18 @@ public class MorraPrueba {
         } while (dedosUsu < 0 || dedosUsu > 5);
 
         return dedosUsu;
+    }
+
+    public static int dedosMaq() {
+        Random alea = new Random();
+        int dedosMaq;
+        dedosMaq = alea.nextInt(0, 5 + 1);
+
+        //0 DEDOS SON 1
+        if (dedosMaq == 0) {
+            dedosMaq = 1;
+        }
+        return dedosMaq;
     }
 
     public static int supDedosTotalJug() {
@@ -149,49 +175,41 @@ public class MorraPrueba {
                 }
 
             } while (repetir);
-            
+
         } while (supDedosJug < 2 || supDedosJug > 10);
 
         return supDedosJug;
     }
-    
+
     public static int supDedosTotalMaq() {
         Random alea = new Random();
         int suposicionMaq;
         suposicionMaq = alea.nextInt(2, 10 + 1);
-        
+
         return suposicionMaq;
     }
-    
-    public static boolean ganador(int suposJug, int suposMaq){
+
+    public static boolean ganador(int dedosJug, int dedosMaq, int suposJug, int suposMaq) {
         int numGanad;
+        boolean ganadorJug = false;
         //DEVOLER VD Y FALSO SI GANA UNO U OTRO
-        
-        numGanad = suposJug + suposMaq;
-        
+
+        numGanad = dedosJug + dedosMaq;
+
+        System.out.println("\nEN TOTAL SON " + numGanad);
+
         if (numGanad == suposJug) {
-            System.out.println("HA GANADO EL JUGADOR");
+            System.out.println("HA GANADO EL JUGADOR\n");
+            ganadorJug = true;
 
-        } else if(numGanad == suposMaq){
-            System.out.println("HA GANADO LA MÁQUINA");
+        } else if (numGanad == suposMaq) {
+            System.out.println("HA GANADO LA MÁQUINA\n");
 
-        }else{
-            System.out.println("NO HA ACERTADO NADIE");
+        } else {
+            System.out.println("NO HA ACERTADO NADIE\n");
         }
-        
-        return 
-    }
 
-    public static int dedosMaq() {
-        Random alea = new Random();
-        int dedosMaq;
-        dedosMaq = alea.nextInt(0, 5 + 1);
-
-        //0 DEDOS SON 1
-        if (dedosMaq == 0) {
-            dedosMaq = 1;
-        }
-        return dedosMaq;
+        return ganadorJug;
     }
 
 }
