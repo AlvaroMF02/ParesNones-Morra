@@ -19,7 +19,9 @@ public class ParesNonesRondas {
         int dedosUsu;
         int dedosMaq;
         int rondas;
-        int contadorGanador;
+
+        int contador;
+        boolean auxCont;
 
         //MOSTRAR EL MENU DE LAS RONDAS
         menu();
@@ -27,7 +29,7 @@ public class ParesNonesRondas {
         teclado.nextLine();
 
         for (int i = 0; i < rondas; i++) {
-            
+
             //ELECCION DE PARES O NONES
             eleccionUsu = eleccionParNonUsu();
             eleccionMaq = eleccionParNonMaq(eleccionUsu);
@@ -37,7 +39,14 @@ public class ParesNonesRondas {
             dedosMaq = dedosMaq();
 
             //MOSTRAR GANADOR
-            ganador(dedosUsu, dedosMaq);
+            auxCont = ganador(dedosUsu, dedosMaq, eleccionUsu, eleccionMaq);
+
+            if (auxCont) {
+
+                System.out.println("PARES");
+            } else {
+                System.out.println("NONES");
+            }
 
         }
     }
@@ -119,26 +128,21 @@ public class ParesNonesRondas {
         return dedosMaq;
     }
 
-    public static void ganador(int dedosUsu, int dedosMaq) {
+    public static boolean ganador(int dedosUsu, int dedosMaq, String eleUsu, String eleMaq) {
         int sumaDedos;
-        String resultado = """
-                         *******************************
-                         DEDOS JUGADOR: %d
-                         DEDOS MAQUINA: %d
-                         """.formatted(dedosUsu, dedosMaq);
+        boolean ganador = false;
 
         sumaDedos = dedosUsu + dedosMaq;
 
-        if (sumaDedos % 2 == 0) {
-            System.out.println(resultado);
-            System.out.println("GANADOR: PARES");
-            System.out.println("*******************************\n");
-        } else {
-            System.out.println(resultado);
-            System.out.println("GANADOR: NONES");
-            System.out.println("*******************************\n");
+        //PARES
+        if (eleUsu.equalsIgnoreCase("pares") && (sumaDedos % 2 == 0)) {
+
         }
+
+        ganador = true;
+
         teclado.nextLine();
 
+        return ganador;
     }
 }
