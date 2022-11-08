@@ -20,7 +20,7 @@ public class MorraPrueba {
         int suposJug1;
         int dedosMaq;
         int suposMaq;
-        boolean contadorTRue;   //SIRVE PARA CALCULAR AYUDAR AL CONTADOR DE GANADORES
+        boolean auxCont;   //SIRVE PARA AYUDAR AL CONTADOR PARA LAS PUNTUACIONES
         int contadorJug1 = 0;
         int contadorJug2 = 0;
         int contadorMaq = 0;
@@ -42,10 +42,10 @@ public class MorraPrueba {
                     suposMaq = supDedosTotalMaq();
 
                     //COMPARAR LOS DEDOS QUE HAN SACADO CADA UNO PARA VER EL GANADOR
-                    contadorTRue = ganador(dedosJug1, dedosMaq, suposJug1, suposMaq);
+                    auxCont = ganador(dedosJug1, dedosMaq, suposJug1, suposMaq);
 
                     //CONTADOR
-                    if (contadorTRue) {
+                    if (auxCont) {
                         contadorJug1++;
                     } else {
                         contadorMaq++;
@@ -57,7 +57,7 @@ public class MorraPrueba {
                     System.out.println("------------PUNTUACIONES:------------");
                     System.out.println("JUGADOR: " + contadorJug1);
                     System.out.println("MAQUINA: " + contadorMaq);
-                    System.out.println("--------------------------------------");
+                    System.out.println("--------------------------------------\n");
 
                     teclado.nextLine();
                     break;
@@ -192,8 +192,7 @@ public class MorraPrueba {
     public static boolean ganador(int dedosJug, int dedosMaq, int suposJug, int suposMaq) {
         int numGanad;
         boolean ganadorJug = false;
-        //DEVOLER VD Y FALSO SI GANA UNO U OTRO
-
+        
         numGanad = dedosJug + dedosMaq;
 
         System.out.println("\nEN TOTAL SON " + numGanad);
