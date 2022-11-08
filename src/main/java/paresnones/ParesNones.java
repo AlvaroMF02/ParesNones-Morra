@@ -21,9 +21,11 @@ public class ParesNones {
         do {
             //MOSTRAR MENU
             menu();
+            
             //LEER MENU
             opcion = leerOpc();
 
+            //SWITCH CON TODOS LO METODOS EN JUGAR
             switch (opcion) {
                 case "jugar":
                     //ELECCION DE PARES O NONES
@@ -62,6 +64,7 @@ public class ParesNones {
     public static String leerOpc() {
         String opcion;
 
+        //CONTROLADOR DE LA SALIDA Y QUE SE ESCIRBA BIEN LAS OPCIONES
         do {
             System.out.println("ESCOJA (JUGAR) O (SALIR)");
             opcion = teclado.nextLine();
@@ -80,6 +83,8 @@ public class ParesNones {
 
     public static String eleccionParNonUsu() {
         String eleccion;
+        
+        //CONTROLADOR PARA ESCRIBIR BIEN PARES O NONES 
         do {
             System.out.println("ESCOJA PARES O NONES");
             eleccion = teclado.nextLine();
@@ -100,6 +105,8 @@ public class ParesNones {
 
     public static String eleccionParNonMaq(String eleccUsu) {
         String eleccionMaq;
+        //ELECCION DE LA MAQUINA
+        
         if (eleccUsu.equalsIgnoreCase("pares")) {
             eleccionMaq = "nones";
         } else {
@@ -113,6 +120,8 @@ public class ParesNones {
         int dedosUsu = 0;
         boolean repetir = true;
 
+        //CONTROLADOR DE LOS DEDOS DEL JUG POR SI METE DEMASIADOS NUMEROS U
+        //OTROS CARACTERES
         do {
             do {
                 try {
@@ -139,6 +148,8 @@ public class ParesNones {
     public static int dedosMaq() {
         Random alea = new Random();
         int dedosMaq;
+        
+        //RANDOM CON LOS DEDOS DE LA MAQUINA
         dedosMaq = alea.nextInt(0, 10 + 1);
 
         return dedosMaq;
@@ -146,6 +157,8 @@ public class ParesNones {
 
     public static void ganador(int dedosUsu, int dedosMaq) {
         int sumaDedos;
+        
+        //MUSTRA EL GANADOR
         String resultado = """
                          *******************************
                          DEDOS JUGADOR: %d
