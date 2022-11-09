@@ -11,7 +11,8 @@ import java.util.Scanner;
 public class ParesNonesRondas {
 
     public static void main(String[] args) {
-        //FALTA INDICAR EL GANADOR CON DOS METODOS QUE SUMEN YO Q SE
+        //SE LE PUEDE METER UN DO WHILE PARA QUE TE PIDA SALIR DEL JUEGO
+        //Y NO SEA SOLO PEDIR LAS RONDAS :)
 
         //VARIABLES
         String eleccionUsu = "";
@@ -19,16 +20,19 @@ public class ParesNonesRondas {
         int dedosUsu;
         int dedosMaq;
         int rondas;
-
-        int contador;
-        boolean auxCont;
+        int contadorJug = 0;
+        int contadorMaq = 0;
+        int auxCont;
 
         //MOSTRAR EL MENU DE LAS RONDAS
         menu();
         rondas = teclado.nextInt();
         teclado.nextLine();
 
-        for (int i = 0; i < rondas; i++) {
+        //BUCLE RONDAS
+        for (int i = 1; i < rondas + 1; i++) {
+
+            System.out.println(" # RONDA: " + i);
 
             //ELECCION DE PARES O NONES
             eleccionUsu = eleccionParNonUsu();
@@ -41,18 +45,38 @@ public class ParesNonesRondas {
             //MOSTRAR GANADOR
             auxCont = ganador(dedosUsu, dedosMaq, eleccionUsu, eleccionMaq);
 
-            if (auxCont) {
-
-                System.out.println("PARES");
+            //CONTADOR DE CADA RONDA 
+            if (eleccionUsu.equalsIgnoreCase("pares") && (auxCont == 1)
+                    || (eleccionUsu.equalsIgnoreCase("nones") && (auxCont == 2))) {
+                System.out.println(" ## GANA EL JUGADOR ##\n");
+                contadorJug++;
             } else {
-                System.out.println("NONES");
+                System.out.println(" ## GANA LA MAQUINA ##\n");
+                contadorMaq++;
             }
 
+            //PUNTOS:
+            System.out.println("\n------------PUNTUACIONES:------------");
+            System.out.println("JUGADOR: " + contadorJug);
+            System.out.println("MAQUINA: " + contadorMaq);
+            System.out.println("--------------------------------------\n");
+
         }
+
+        //RESULTADO FINAL
+        if (contadorJug > contadorMaq) {
+            System.out.println("\nHA GANADO EL JUGADOR\n");
+        } else if (contadorJug < contadorMaq) {
+            System.out.println("\nHA GANADO LA MAQUINA\n");
+        } else {
+            System.out.println("\nEMPATE\n");
+        }
+
     }
 
     private static Scanner teclado = new Scanner(System.in);
 
+    //METODO CON EL MENU
     public static void menu() {
         String menu = """
                     *******************************
@@ -62,6 +86,7 @@ public class ParesNonesRondas {
         System.out.println(menu);
     }
 
+    //METODO PARA QUE EL JUGADOR DECIDA PARES O NONES
     public static String eleccionParNonUsu() {
         String eleccion;
         do {
@@ -82,6 +107,7 @@ public class ParesNonesRondas {
         return eleccion;
     }
 
+    //METODO CON LA SELECCION DE LA MAQUINA
     public static String eleccionParNonMaq(String eleccUsu) {
         String eleccionMaq;
         if (eleccUsu.equalsIgnoreCase("pares")) {
@@ -93,6 +119,7 @@ public class ParesNonesRondas {
         return eleccionMaq;
     }
 
+    //METODO PARA LOS DEDOS DEL JUGADOR FILTRADO
     public static int dedosUsu() {
         int dedosUsu = 0;
         boolean repetir = true;
@@ -120,6 +147,7 @@ public class ParesNonesRondas {
         return dedosUsu;
     }
 
+    //METODO CON UN ALEA PARA LOS DEDOS DE LA MAQUINA
     public static int dedosMaq() {
         Random alea = new Random();
         int dedosMaq;
@@ -128,21 +156,25 @@ public class ParesNonesRondas {
         return dedosMaq;
     }
 
-    public static boolean ganador(int dedosUsu, int dedosMaq, String eleUsu, String eleMaq) {
+    //METODO CON LA SUMA Y EL IF PARA VER EL GANADOR DE LA RONDA
+    public static int ganador(int dedosJug, int dedosMaq, String eleUsu, String eleMaq) {
         int sumaDedos;
-        boolean ganador = false;
+        int contaGana = 0;
 
-        sumaDedos = dedosUsu + dedosMaq;
+        sumaDedos = dedosJug + dedosMaq;
 
-        //PARES
-        if (eleUsu.equalsIgnoreCase("pares") && (sumaDedos % 2 == 0)) {
+        System.out.println("JUGADOR: " + dedosJug);
+        System.out.println("MAQUINA: " + dedosMaq);
+        System.out.println("TOTAL: " + sumaDedos + "\n");
 
+        if (sumaDedos % 2 == 0) {
+            contaGana = 1;
+        } else {
+            contaGana = 2;
         }
-
-        ganador = true;
 
         teclado.nextLine();
 
-        return ganador;
+        return contaGana;
     }
 }
