@@ -11,7 +11,7 @@ import java.util.Scanner;
 public class ParesNonesRondas {
 
     public static void main(String[] args) {
-        //FALTA INDICAR EL GANADOR
+        //FALTA INDICAR EL GANADOR CON DOS METODOS QUE SUMEN YO Q SE
 
         //VARIABLES
         String eleccionUsu = "";
