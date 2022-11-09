@@ -13,7 +13,6 @@ public class Morra {
 
     public static void main(String[] args) {
         //PONER COMENTARIOS
-        //QUITAR AMIGOS
         //PONER LAS RONDAS HASTA 5
 
         //VARIABLES
@@ -22,9 +21,8 @@ public class Morra {
         int suposJug1;
         int dedosMaq;
         int suposMaq;
-        boolean auxCont;   //SIRVE PARA AYUDAR AL CONTADOR PARA LAS PUNTUACIONES
-        int contadorJug1 = 0;
-        int contadorJug2 = 0;
+        int auxCont;
+        int contadorJug = 0;
         int contadorMaq = 0;
 
         do {
@@ -35,32 +33,38 @@ public class Morra {
             opcion = leerOpc();
 
             switch (opcion) {
-                case "maquina":
-                    dedosJug1 = dedosJug();
-                    dedosMaq = dedosMaq();
+                case "jugar":
+                    
+                    for (int i = 1; i < 6; i++) {
+                        
+                        System.out.println(" # RONDA " + i);
+                        
+                        dedosJug1 = dedosJug();
+                        dedosMaq = dedosMaq();
 
-                    //USUARIO INDICA LO QUE CREE QUE SALDRÁ
-                    suposJug1 = supDedosTotalJug();
-                    suposMaq = supDedosTotalMaq();
+                        //USUARIO INDICA LO QUE CREE QUE SALDRÁ
+                        suposJug1 = supDedosTotalJug();
+                        suposMaq = supDedosTotalMaq();
 
-                    //COMPARAR LOS DEDOS QUE HAN SACADO CADA UNO PARA VER EL GANADOR
-                    auxCont = ganador(dedosJug1, dedosMaq, suposJug1, suposMaq);
+                        //COMPARAR LOS DEDOS QUE HAN SACADO CADA UNO PARA VER EL GANADOR
+                        auxCont = ganador(dedosJug1, dedosMaq, suposJug1, suposMaq);
 
-                    //CONTADOR
-                    if (auxCont) {
-                        contadorJug1++;
-                    } else {
-                        contadorMaq++;
+                        //CONTADOR
+                        //SI EL AUX ES 1 SE SUMA AL JUGADOR, SI ES DOS A LA MAQUINA
+                        if (auxCont == 1) {
+                            contadorJug++;
+                        } else if (auxCont == 2) {
+                            contadorMaq++;
+                        }
+
+                        System.out.println("\nEL JUGADOR SACÓ " + dedosJug1 + " DEDOS, Y CREE QUE HAY " + suposJug1);
+                        System.out.println("LA MAQUINA SACÓ " + dedosMaq + " DEDOS, Y CREE QUE HAY " + suposMaq);
+
+                        System.out.println("\n------------PUNTUACIONES:------------");
+                        System.out.println("JUGADOR: " + contadorJug);
+                        System.out.println("MAQUINA: " + contadorMaq);
+                        System.out.println("--------------------------------------\n");
                     }
-
-                    System.out.println("EL JUGADOR SACÓ " + dedosJug1 + " DEDOS, Y CREE QUE HAY " + suposJug1);
-                    System.out.println("LA MAQUINA SACÓ " + dedosMaq + " DEDOS, Y CREE QUE HAY " + suposMaq);
-
-                    System.out.println("------------PUNTUACIONES:------------");
-                    System.out.println("JUGADOR: " + contadorJug1);
-                    System.out.println("MAQUINA: " + contadorMaq);
-                    System.out.println("--------------------------------------\n");
-
                     teclado.nextLine();
                     break;
 
@@ -78,10 +82,10 @@ public class Morra {
     public static void menu() {
         String menu = """
                     *******************************
-                        -> CONTRA LA MAQUINA <-
-                       -> CONTRA OTRO JUGADOR <-
-                            -> SALIR <-
+                              -> JUGAR <-
+                              -> SALIR <-
                     *******************************
+                      (se jugarán 5 rondas, suerte)
                     """;
         System.out.println(menu);
     }
@@ -185,26 +189,26 @@ public class Morra {
         return suposicionMaq;
     }
 
-    public static boolean ganador(int dedosJug, int dedosMaq, int suposJug, int suposMaq) {
+    public static int ganador(int dedosJug, int dedosMaq, int suposJug, int suposMaq) {
         int numGanad;
-        boolean ganadorJug = false;
-        
+        int ganadorCont = 0;
+
         numGanad = dedosJug + dedosMaq;
 
         System.out.println("\nEN TOTAL SON " + numGanad);
 
         if (numGanad == suposJug) {
             System.out.println("HA GANADO EL JUGADOR\n");
-            ganadorJug = true;
+            ganadorCont = 1;
 
         } else if (numGanad == suposMaq) {
             System.out.println("HA GANADO LA MÁQUINA\n");
-
+            ganadorCont = 2;
         } else {
             System.out.println("NO HA ACERTADO NADIE\n");
         }
 
-        return ganadorJug;
+        return ganadorCont;
     }
 
 }
