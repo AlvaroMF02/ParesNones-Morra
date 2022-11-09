@@ -13,6 +13,8 @@ public class Morra {
 
     public static void main(String[] args) {
         //PONER COMENTARIOS
+        //QUITAR AMIGOS
+        //PONER LAS RONDAS HASTA 5
 
         //VARIABLES
         String opcion = "";
@@ -62,10 +64,6 @@ public class Morra {
                     teclado.nextLine();
                     break;
 
-                case "amigo":
-                    System.out.println("CONTRA UN AMIGO");
-                    break;
-
                 case "salir":
                     System.out.println("SALIDA DEL PROGRAMA\n");
                     break;
@@ -92,19 +90,17 @@ public class Morra {
         String opcion;
 
         do {
-            System.out.println("ESCOJA (MAQUINA) , (AMIGO) O (SALIR)");
+            System.out.println("ESCOJA (JUGAR) O (SALIR)");
             opcion = teclado.nextLine();
             opcion = opcion.toLowerCase();
 
-            if (!opcion.equalsIgnoreCase("maquina")
-                    && !opcion.equalsIgnoreCase("amigo")
+            if (!opcion.equalsIgnoreCase("jugar")
                     && !opcion.equalsIgnoreCase("salir")) {
 
                 System.out.println("ESCRIBA BIEN LA OPCIÓN\n");
             }
 
-        } while (!opcion.equalsIgnoreCase("maquina")
-                && !opcion.equalsIgnoreCase("amigo")
+        } while (!opcion.equalsIgnoreCase("jugar")
                 && !opcion.equalsIgnoreCase("salir"));
 
         return opcion;
