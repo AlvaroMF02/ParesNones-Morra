@@ -34,15 +34,17 @@ public class Morra {
 
             switch (opcion) {
                 case "jugar":
-                    
+
+                    //BUCLE PARA LAS RONDAS
                     for (int i = 1; i < 6; i++) {
-                        
+
                         System.out.println(" # RONDA " + i);
-                        
+
+                        //RECOGE LOS DEDOS DE LA MAQUINA Y EL JUGADOR
                         dedosJug1 = dedosJug();
                         dedosMaq = dedosMaq();
 
-                        //USUARIO INDICA LO QUE CREE QUE SALDRÁ
+                        //RECOGE LO QUE CREEN QUE VA A SACAR CADA UNO
                         suposJug1 = supDedosTotalJug();
                         suposMaq = supDedosTotalMaq();
 
@@ -57,6 +59,7 @@ public class Morra {
                             contadorMaq++;
                         }
 
+                        //SALIDA DE TODA LA INFO
                         System.out.println("\nEL JUGADOR SACÓ " + dedosJug1 + " DEDOS, Y CREE QUE HAY " + suposJug1);
                         System.out.println("LA MAQUINA SACÓ " + dedosMaq + " DEDOS, Y CREE QUE HAY " + suposMaq);
 
@@ -69,6 +72,7 @@ public class Morra {
                     break;
 
                 case "salir":
+                    //SALIDA DEL PROGRAMA
                     System.out.println("SALIDA DEL PROGRAMA\n");
                     break;
 
@@ -79,6 +83,7 @@ public class Morra {
 
     private static Scanner teclado = new Scanner(System.in);
 
+    //MENU PRINCIPAL
     public static void menu() {
         String menu = """
                     *******************************
@@ -90,6 +95,7 @@ public class Morra {
         System.out.println(menu);
     }
 
+    //RECOGIDA DE DATOS DEL MENU PRINCIPAL
     public static String leerOpc() {
         String opcion;
 
@@ -110,12 +116,15 @@ public class Morra {
         return opcion;
     }
 
+    //METODO PARA LOS DEDOS DEL JUGADOR
     public static int dedosJug() {
         int dedosUsu = 0;
         boolean repetir = true;
 
+        //FILTRO DEDOS
         do {
             do {
+                //FILTRAR CARACTERES NO NUMERICOS
                 try {
 
                     System.out.println("INDIQUE LA CANTIDAD DE DEDOS");
@@ -141,9 +150,11 @@ public class Morra {
         return dedosUsu;
     }
 
+    //METODO PARA LOS DEDOS DEL MAQUINA
     public static int dedosMaq() {
         Random alea = new Random();
         int dedosMaq;
+        //DEDOS ALEATORIOS
         dedosMaq = alea.nextInt(0, 5 + 1);
 
         //0 DEDOS SON 1
@@ -153,10 +164,11 @@ public class Morra {
         return dedosMaq;
     }
 
+    //SUPOSICION DE LOS DEDOS TOTALES JUGADOR
     public static int supDedosTotalJug() {
         int supDedosJug = 2;
         boolean repetir = true;
-
+        //IGUAL QUE EL METODO PARA LOS DEDOS PERO CAMBIANDO EL MIN Y MAX
         do {
             do {
                 try {
@@ -181,6 +193,7 @@ public class Morra {
         return supDedosJug;
     }
 
+    //SUPOSICION DE LOS DEDOS TOTALES MAQUINA
     public static int supDedosTotalMaq() {
         Random alea = new Random();
         int suposicionMaq;
@@ -189,14 +202,16 @@ public class Morra {
         return suposicionMaq;
     }
 
+    //METODO PARA VER EL GANADOR Y EL CONTADOR
     public static int ganador(int dedosJug, int dedosMaq, int suposJug, int suposMaq) {
         int numGanad;
         int ganadorCont = 0;
 
         numGanad = dedosJug + dedosMaq;
-
+        
         System.out.println("\nEN TOTAL SON " + numGanad);
 
+        //MUESTRA LOS GANADORES DE LA RONDA Y ASIGNA UN VALOR PARA EL CONTADOR
         if (numGanad == suposJug) {
             System.out.println("HA GANADO EL JUGADOR\n");
             ganadorCont = 1;
